@@ -84,48 +84,55 @@ astronomy_knowledge = {
 def get_best_answer(question):
     try:
         print(f"Received question: {question}")
+        cleaned_question = re.sub(r'[^\w\s?]', '', question.lower())
+        print(f"Cleaned question: {cleaned_question}")
         
-        # Combine all knowledge into a single context
-        all_knowledge = ""
-        
-        # First try enhanced knowledge base
-        if enhanced_knowledge:
-            # Try exact match in enhanced knowledge
-            cleaned_question = re.sub(r'[^\w\s?]', '', question.lower())
-            print(f"Cleaned question: {cleaned_question}")
-            
-            # Try direct matching with enhanced knowledge
-            for q, a in enhanced_knowledge.items():
-                if cleaned_question in q.lower() or q.lower() in cleaned_question:
-                    print(f"Found direct match in enhanced knowledge: {q}")
-                    return a, True
-            
-            # Add enhanced knowledge to context
-            all_knowledge += " ".join(enhanced_knowledge.values()) + " "
-        
-        # Add base knowledge to context
-        for category in astronomy_knowledge.values():
-            all_knowledge += " ".join(category.values()) + " "
-            # Try direct matching with base knowledge
-            for q, a in category.items():
+        # First check direct matches in astronomy_knowledge
+        for category, qa_pairs in astronomy_knowledge.items():
+            for q, a in qa_pairs.items():
                 if cleaned_question in q.lower() or q.lower() in cleaned_question:
                     print(f"Found direct match in base knowledge: {q}")
                     return a, True
-
-        # If no direct match, use the QA pipeline
-        print("No direct match found, using QA pipeline")
-        result = qa_pipeline(
-            question=cleaned_question,
-            context=all_knowledge,
-            max_answer_length=100
-        )
-
-        print(f"QA pipeline result: {result}")
-        return result['answer'], True
+        
+        # Then check enhanced knowledge base
+        if enhanced_knowledge:
+            for q, a in enhanced_knowledge.items():
+                if isinstance(a, str) and (cleaned_question in q.lower() or q.lower() in cleaned_question):
+                    print(f"Found direct match in enhanced knowledge: {q}")
+                    return a, True
+        
+        # If no direct match found, try fuzzy matching with base knowledge
+        best_match = None
+        best_score = 0
+        
+        # Check base knowledge
+        for category, qa_pairs in astronomy_knowledge.items():
+            for q, a in qa_pairs.items():
+                # Simple word overlap score
+                q_words = set(q.lower().split())
+                question_words = set(cleaned_question.split())
+                overlap = len(q_words.intersection(question_words))
+                score = overlap / max(len(q_words), len(question_words))
+                
+                if score > best_score:
+                    best_score = score
+                    best_match = a
+        
+        if best_score > 0.5:  # If we have a good fuzzy match
+            return best_match, True
+        
+        # If no good matches found, use a relevant section from knowledge base
+        for category, qa_pairs in astronomy_knowledge.items():
+            for q, a in qa_pairs.items():
+                # Look for any word overlap
+                if any(word in q.lower() for word in cleaned_question.split()):
+                    return a, True
+        
+        return "I apologize, but I couldn't find a specific answer to your question. Please try asking about a different astronomy topic or rephrase your question.", True
 
     except Exception as e:
         print(f"Error in get_best_answer: {str(e)}")
-        return str(e), False
+        return "I encountered an error while processing your question. Please try again.", False
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
