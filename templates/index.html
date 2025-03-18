@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astro - Your Space Companion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='images/astro.svg') }}">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container">
+        <div class="bot-header">
+            <img src="{{ url_for('static', filename='images/astro.svg') }}" alt="Astro" class="bot-icon">
+            <h1>Astro</h1>
+            <p class="bot-subtitle">Your Friendly Space Companion 🌟</p>
+        </div>
+        
+        <div class="categories">
+            {% for category in categories %}
+            <span class="category-tag">{{ category }}</span>
+            {% endfor %}
+        </div>
+
+        <form method="POST" action="/" class="question-form">
+            <div class="input-group">
+                <input type="text" 
+                       name="question" 
+                       placeholder="Ask me anything about astronomy..."
+                       value="{{ question }}" 
+                       required>
+                <button type="submit">Ask</button>
+            </div>
+        </form>
+
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        {% if question %}
+        <div class="chat-container">
+            <div class="message user-message">
+                <strong>You:</strong> {{ question }}
+            </div>
+            <div class="message bot-message">
+                <strong>Astro:</strong> {{ answer }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>Powered by AI 🚀 | Explore the cosmos one question at a time</p>
+    </footer>
+</body>
+</html>

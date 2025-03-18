@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Helmet -->
+    <circle cx="256" cy="256" r="200" fill="#2C5364" stroke="#00b4db" stroke-width="12"/>
+    <circle cx="256" cy="256" r="180" fill="#203A43" stroke="#00b4db" stroke-width="8"/>
+    
+    <!-- Face -->
+    <circle cx="256" cy="256" r="150" fill="#0F2027"/>
+    
+    <!-- Eyes -->
+    <circle cx="206" cy="236" r="25" fill="#00b4db">
+        <animate attributeName="r" values="25;22;25" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="306" cy="236" r="25" fill="#00b4db">
+        <animate attributeName="r" values="25;22;25" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Small glowing dots -->
+    <circle cx="206" cy="236" r="10" fill="#ffffff">
+        <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="306" cy="236" r="10" fill="#ffffff">
+        <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Smile -->
+    <path d="M206 296 Q256 346 306 296" stroke="#00b4db" stroke-width="8" fill="none">
+        <animate attributeName="d" 
+                 values="M206 296 Q256 346 306 296;M206 306 Q256 356 306 306;M206 296 Q256 346 306 296" 
+                 dur="4s" 
+                 repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Antenna -->
+    <line x1="256" y1="106" x2="256" y2="56" stroke="#00b4db" stroke-width="8"/>
+    <circle cx="256" cy="46" r="10" fill="#00b4db">
+        <animate attributeName="r" values="10;12;10" dur="1s" repeatCount="indefinite"/>
+        <animate attributeName="fill" values="#00b4db;#ffffff;#00b4db" dur="1s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Stars background -->
+    <g>
+        <circle cx="156" cy="156" r="2" fill="#ffffff"/>
+        <circle cx="356" cy="156" r="2" fill="#ffffff"/>
+        <circle cx="156" cy="356" r="2" fill="#ffffff"/>
+        <circle cx="356" cy="356" r="2" fill="#ffffff"/>
+        <circle cx="256" cy="156" r="2" fill="#ffffff"/>
+        <circle cx="256" cy="356" r="2" fill="#ffffff"/>
+        <circle cx="156" cy="256" r="2" fill="#ffffff"/>
+        <circle cx="356" cy="256" r="2" fill="#ffffff"/>
+    </g>
+</svg>

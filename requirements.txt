@@ -1,0 +1,6 @@
+Flask==3.0.2
+transformers==4.46.3
+torch==2.2.0
+gunicorn==21.2.0
+kagglehub==0.2.9
+pandas==2.0.3
