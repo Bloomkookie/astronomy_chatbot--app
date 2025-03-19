@@ -4,7 +4,7 @@ A beautiful and intelligent astronomy chatbot that answers questions about space
 
 ## Features
 
-- Interactive chat interface with a cute anime-style robot mascot
+- Interactive chat interface with a cute robot mascot
 - Comprehensive knowledge base covering various astronomy topics
 - Beautiful space-themed UI with animated stars
 - Mobile-responsive design
@@ -44,37 +44,6 @@ python app.py
 ```
 
 The application will be available at `http://localhost:8080`
-
-## Deployment
-
-This application can be deployed to various platforms:
-
-### Heroku
-1. Create a Heroku account and install Heroku CLI
-2. Login to Heroku:
-```bash
-heroku login
-```
-3. Create a new Heroku app:
-```bash
-heroku create your-app-name
-```
-4. Push to Heroku:
-```bash
-git push heroku main
-```
-
-### Railway/Render
-1. Connect your GitHub repository
-2. Use the following build command:
-```bash
-pip install -r requirements.txt
-```
-3. Use the following start command:
-```bash
-gunicorn app:app
-```
-
 ## Environment Variables
 No environment variables are required for basic functionality.
 
